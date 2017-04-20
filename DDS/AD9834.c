@@ -2,7 +2,7 @@
 
 union
 {
-	uint16_t VALUE;		//START WITH DB0 TO DB15 (fucking datasheet)
+	uint16_t VALUE;		//START WITH DB0 TO DB15 (F~U~C~K THE Datasheet)
 	struct {
 		_Bool			: 1;
 		_Bool MODE		: 1;
