@@ -10,19 +10,17 @@ int main(void)
 {
 	HAL_Init();
 	SystemClock_Config();
+
 	GPIO_Init();
+	Key_Init();
 	AD9834_Init();
 
 
-	LCD1602_Init();
-	
-//	LCD1602_ShowStr("wtf is going");
+//	LCD1602_Init();
+//	LCD1602_ShowStr("AAAAAs");
 
-	uint32_t freq = 10000;
 	for (;;)
 	{
-		AD9834_WriteFreq(freq, 0);
-		freq += 10000;
 		GPIOA->BSRR = GPIO_PIN_12;
 		HAL_Delay(500);
 		GPIOA->BRR = GPIO_PIN_12;
@@ -45,14 +43,17 @@ void GPIO_Init(void)
 	GPIO_InitStructure.Pull = GPIO_NOPULL;
 	HAL_GPIO_Init(GPIOA, &GPIO_InitStructure);
 
-	//GPIO_InitStructure.Mode = GPIO_MODE_OUTPUT_OD;
+	/*
+	GPIOB->CRL = 0x33333333;
+	GPIO_InitStructure.Pin = 0xFF;
+	GPIO_InitStructure.Pull = GPIO_PULLDOWN;
+	HAL_GPIO_Init(GPIOB, &GPIO_InitStructure);
+	*/
 
 	GPIO_InitStructure.Pin = GPIO_PIN_6 | GPIO_PIN_7 | GPIO_PIN_8 | GPIO_PIN_9 | GPIO_PIN_10 | GPIO_PIN_11 | GPIO_PIN_12;
+
+	GPIO_InitStructure.Pull = GPIO_NOPULL;
 	HAL_GPIO_Init(GPIOC, &GPIO_InitStructure);
-
-	GPIO_InitStructure.Pin = GPIO_PIN_All;
-	HAL_GPIO_Init(GPIOB, &GPIO_InitStructure);
-
 }
 
 void SystemClock_Config(void)

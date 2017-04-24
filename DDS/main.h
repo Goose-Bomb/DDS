@@ -1,6 +1,7 @@
 #pragma once
 #include <stm32f1xx_hal.h>
 
+extern void Key_Init(void);
 extern void LCD1602_Init(void);
 extern void LCD1602_ShowStr(uint8_t*);
 extern void AD9834_Init(void);

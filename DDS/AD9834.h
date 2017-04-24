@@ -20,3 +20,4 @@ void Delay_us(uint32_t);
 void WriteReg(uint16_t);
 void AD9834_Init(void);
 void AD9834_WriteFreq(uint32_t, _Bool);
+void AD9834_SwitchMode(void);

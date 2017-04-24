@@ -4,6 +4,10 @@ void LCD1602_Init(void)
 {
 	MODE_WRITE;
 	DISABLE;
+	GPIOB->ODR = 0;
+
+	HAL_GPIO_WritePin(GPIOB, GPIO_PIN_3, 0);
+	HAL_GPIO_WritePin(GPIOB, GPIO_PIN_4, 0);
 
 	SendCom(0x38);
 	SendCom(0x0C);

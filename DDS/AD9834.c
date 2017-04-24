@@ -52,9 +52,9 @@ void AD9834_Init(void)
 	Com_Data.BITS.FSEL = 0;
 	Com_Data.BITS.PSEL = 0;
 	Com_Data.BITS.PIN_SW = 0;
-	Com_Data.BITS.OPBITEN = 1;
-	Com_Data.BITS.SIGN_PIB = 1;
-	Com_Data.BITS.MODE = 1;
+//	Com_Data.BITS.OPBITEN = 1;
+//	Com_Data.BITS.SIGN_PIB = 1;
+	Com_Data.BITS.MODE = 0;
 
 	WriteReg(Com_Data.VALUE);
 
@@ -66,11 +66,6 @@ void AD9834_Init(void)
 void AD9834_WriteFreq(uint32_t freq, _Bool REG_SW) //HZ
 {
 	freq *= 3.57914f;
-	//uint16_t FLSB = 0X4000 | (freq & 0x3FFF);
-	//uint16_t FMSB = 0x4000 | ((freq & 0x0FFFC000) >> 14);
-
-	//WriteReg(FLSB);
-	//WriteReg(FMSB);
 
 	Freq_Data.BITS.ADDR = 0x01 << REG_SW; //FREQ0 ~ [0 : 1], FREQ1 ~ [1 : 0]
 
@@ -79,6 +74,12 @@ void AD9834_WriteFreq(uint32_t freq, _Bool REG_SW) //HZ
 
 	Freq_Data.BITS.REG = (freq & 0x0FFFC000) >> 14;
 	WriteReg(Freq_Data.VALUE);
+}
+
+void AD9834_SwitchMode(void)
+{
+	Com_Data.BITS.MODE = !Com_Data.BITS.MODE;
+	WriteReg(Com_Data.VALUE);
 }
 
 void WriteReg(uint16_t data)
